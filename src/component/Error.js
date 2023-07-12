@@ -1,7 +1,16 @@
+import { useRouteError } from "react-router-dom"
+
 const Error=()=>{
 
+    const err=useRouteError()
+
+
+
     return(<>
-    This is Error Component
+    <div>
+        {err.data}
+    </div>
+
     </>)
 
 }
