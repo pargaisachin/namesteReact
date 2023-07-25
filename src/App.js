@@ -5,6 +5,7 @@ import BodyComponent from "./component/BodyComponent"
 import About from "./component/About"
 import Contactus from "./component/Contactus"
 import Error from "./component/Error"
+import RestaurantMenuPage from "./component/RestaurantMenuPage"
 import {createBrowserRouter,RouterProvider,Outlet} from "react-router-dom"
 /**
  * 
@@ -49,6 +50,10 @@ const appRouter=createBrowserRouter([
         {
           path:"/contact",
           element:<Contactus/>
+        },
+        {
+          path:"/restaurant/:resId",
+          element:<RestaurantMenuPage/> 
         }
       ],
       errorElement:<Error/>

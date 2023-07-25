@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import { resList } from "../commmon/resdata"
 import RestaurantContainer from "./RestaurantContainer"
 import ShimmerUI from "./shimmer"
+import { Link } from "react-router-dom"
 
 
 const BodyComponent=()=>{
@@ -12,7 +13,7 @@ const [searchString,setSearchString]=useState("")
 
 useEffect(()=>{
 fetchData()
-})
+},[])
 
 useEffect(()=>{
   let filteredListOfRes=copyListOfRestaurant.filter((item)=>{
@@ -56,7 +57,10 @@ useEffect(()=>{
           </div>
   
          <div className="res-container">
-           {listOfRestaurant.map((resObj)=>{return <RestaurantContainer key={resObj?.data.id} resData={resObj}/>})}
+           {listOfRestaurant.map((resObj)=>{
+          
+           return <Link key={resObj?.data.id} to={`/restaurant/${resObj?.data.id}`}><RestaurantContainer key={resObj?.data.id} resData={resObj} /><RestaurantContainer resData={resObj} /></Link>  
+        })}
          </div>
     </div>
     )
