@@ -70,3 +70,7 @@ background-color: red;
     margin: 5px;
     height: 400px;
 }
+
+.user-card{
+    border: 1px solid black;
+}

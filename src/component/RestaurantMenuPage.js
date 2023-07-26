@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react"
-import ShimmerUI from "./shimmer"
+import ShimmerUI from "./ShimmerUI";
 
 import { useParams } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const fetchData= async()=>{
     const {name,cuisines,costForTwoMessage}=restaurantMenuData?.cards[0]?.card?.card?.info
 
     const {itemCards}=restaurantMenuData?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-
+    console.log("pp",itemCards)
 
   
 return(
@@ -47,6 +47,7 @@ return(
         <h1>Menu</h1>
         <ul>
             {itemCards.map((item)=>{
+                console.log("pp",item)
               return <li>{item.card.info.name}</li>
         })}
         </ul>

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import { resList } from "../commmon/resdata"
 import RestaurantContainer from "./RestaurantContainer"
-import ShimmerUI from "./shimmer"
+import ShimmerUI from "./ShimmerUI"
 import { Link } from "react-router-dom"
 
 
