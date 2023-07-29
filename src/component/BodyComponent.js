@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react"
-import { resList } from "../commmon/resdata"
 import RestaurantContainer from "./RestaurantContainer"
 import ShimmerUI from "./ShimmerUI"
 import { Link } from "react-router-dom"
+import useOnlineOffline from "../commmon/useOnlineOffline"
 
 
 const BodyComponent=()=>{
@@ -17,12 +17,18 @@ fetchData()
 
 useEffect(()=>{
   let filteredListOfRes=copyListOfRestaurant.filter((item)=>{
-    return item?.data?.name?.toLowerCase()?.includes(searchString?.toLowerCase())
+    return item?.info?.name?.toLowerCase()?.includes(searchString?.toLowerCase())
   })
   setListOfRestaurant(filteredListOfRes)
   console.log(filteredListOfRes)
 
 },[searchString])
+
+let onlineStatus=useOnlineOffline()
+
+if(onlineStatus===false){
+  return <h1>Looks like your are offline ,Please check your internet</h1>
+}
 
 
   
@@ -33,8 +39,8 @@ useEffect(()=>{
     
     let json=await data.json()
 
-    setListOfRestaurant(json?.data?.cards[2]?.data?.data?.cards)
-    setcopyListOfRestaurant(json?.data?.cards[2]?.data?.data?.cards)
+    setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setcopyListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     
   }
 
@@ -42,12 +48,10 @@ useEffect(()=>{
     return (<><ShimmerUI></ShimmerUI></>)
   }
 
-  
-
   return(
     <div className="body">
          <div className="filter">
-          <button className="filter-btn" onClick={()=>{setListOfRestaurant(resList.filter((item)=>{return item.data.avgRating>4})) }}>Top Rated Restaurant</button>
+          <button className="filter-btn" onClick={()=>{setListOfRestaurant(listOfRestaurant.filter((item)=>{return item.info.avgRating>4})) }}>Top Rated Restaurant</button>
           <input value={searchString}  onChange={(item)=>{
 
             setSearchString(item.target.value)
@@ -59,7 +63,7 @@ useEffect(()=>{
          <div className="res-container">
            {listOfRestaurant.map((resObj)=>{
           
-           return <Link key={resObj?.data.id} to={`/restaurant/${resObj?.data.id}`}><RestaurantContainer key={resObj?.data.id} resData={resObj} /><RestaurantContainer resData={resObj} /></Link>  
+           return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}><RestaurantContainer key={resObj?.info.id} resData={resObj} /><RestaurantContainer resData={resObj} /></Link>  
         })}
          </div>
     </div>

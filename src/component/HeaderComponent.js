@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState ,lazy,Suspense} from "react"
 import { Link } from "react-router-dom"
+import useOnlineOffline from "../commmon/useOnlineOffline"
+
 
 const HeaderComponent=()=>{
+
+    
     
      
     const [loginbtn,setLoginbtn]=useState("Login")    
@@ -21,6 +25,8 @@ const HeaderComponent=()=>{
         console.log("This only ones")
     },[])
     
+
+    
     
     return(
 
@@ -31,19 +37,17 @@ const HeaderComponent=()=>{
         <div className="nav-items">
             
             <ul>
-
+                 <li>{useOnlineOffline()===false?"🔴":"🟢"}</li>
 
                 <li><Link to="/">Home</Link></li>
 
+                <li><Link to="/grocery">Grocery</Link></li>
 
                 <li><Link to="/about">About Us</Link></li>
 
-
                 <li><Link to="/contact">Contacts</Link></li>
 
-
                 <li>Cart</li>
-
 
                 <button className="loginLogoutbtn" onClick={()=>{
                     loginbtn==="Login"?setLoginbtn("Logout"):setLoginbtn("Login")

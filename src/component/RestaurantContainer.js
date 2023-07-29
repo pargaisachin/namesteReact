@@ -1,8 +1,8 @@
-import { Logo_URL } from "../commmon/resdata"
+import { Logo_URL } from "../commmon/Constant"
 const RestaurantContainer=(props)=>{
     let {resData}=props
 
-    let {name,cuisines,deliveryTime,costForTwo,avgRating,cloudinaryImageId}=resData?.data
+    let {name,cuisines,deliveryTime,costForTwo,avgRating,cloudinaryImageId}=resData?.info
 
 
 return(
