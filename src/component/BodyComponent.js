@@ -38,32 +38,34 @@ if(onlineStatus===false){
      let data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&page_type=DESKTOP_WEB_LISTING")
     
     let json=await data.json()
+    console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
-    setListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setcopyListOfRestaurant(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setcopyListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     
   }
 
-  if(listOfRestaurant?.length===0){
+  if(listOfRestaurant?.length===0){ 
     return (<><ShimmerUI></ShimmerUI></>)
   }
 
   return(
-    <div className="body">
-         <div className="filter">
-          <button className="filter-btn" onClick={()=>{setListOfRestaurant(listOfRestaurant.filter((item)=>{return item.info.avgRating>4})) }}>Top Rated Restaurant</button>
-          <input value={searchString}  onChange={(item)=>{
+    <div className="grid justify-items-center ">
+         <div className="">
+          <button className=" px-4 bg-gray-200 rounded-lg" onClick={()=>{setListOfRestaurant(listOfRestaurant.filter((item)=>{return item.info.avgRating>4})) }}>Top Rated Restaurant</button>
+          <input className="px-8 border border-solid border-black" type="text" value={searchString}   onChange={(item)=>{
 
             setSearchString(item.target.value)
 
           }}></input>
-          <button>Search</button>
+          <button className="bg-lime-200 rounded-lg m-4 px-4 py-2" >Search</button>
           </div>
   
-         <div className="res-container">
-           {listOfRestaurant.map((resObj)=>{
+         <div className="grid grid-cols-4 gap-4 ">
+           {listOfRestaurant.map((resObj,index)=>{
+            console.log("p",index,resObj)
           
-           return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}><RestaurantContainer key={resObj?.info.id} resData={resObj} /><RestaurantContainer resData={resObj} /></Link>  
+           return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}><RestaurantContainer key={resObj?.info.id} index={index}resData={resObj} /></Link>  
         })}
          </div>
     </div>
