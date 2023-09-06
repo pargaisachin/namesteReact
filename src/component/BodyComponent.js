@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import RestaurantContainer from "./RestaurantContainer"
+import RestaurantContainer ,{withLowRatedRestaurantLabel}from "./RestaurantContainer"
 import ShimmerUI from "./ShimmerUI"
 import { Link } from "react-router-dom"
 import useOnlineOffline from "../commmon/useOnlineOffline"
@@ -7,13 +7,17 @@ import useOnlineOffline from "../commmon/useOnlineOffline"
 
 const BodyComponent=()=>{
 
+
 const [listOfRestaurant,setListOfRestaurant]=useState([])
 const [copyListOfRestaurant,setcopyListOfRestaurant]=useState([])
 const [searchString,setSearchString]=useState("")
+const LowRatedRestaurant=withLowRatedRestaurantLabel(RestaurantContainer)
+
 
 useEffect(()=>{
 fetchData()
 },[])
+
 
 useEffect(()=>{
   let filteredListOfRes=copyListOfRestaurant.filter((item)=>{
@@ -24,24 +28,25 @@ useEffect(()=>{
 
 },[searchString])
 
+
 let onlineStatus=useOnlineOffline()
+
 
 if(onlineStatus===false){
   return <h1>Looks like your are offline ,Please check your internet</h1>
 }
 
 
-  
-
   const fetchData=async()=>{
 
      let data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&page_type=DESKTOP_WEB_LISTING")
     
     let json=await data.json()
-    console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    console.log("pp",json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants[0]?.info?.id)
+    console.log(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
-    setListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setcopyListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setListOfRestaurant(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setcopyListOfRestaurant(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     
   }
 
@@ -65,7 +70,8 @@ if(onlineStatus===false){
            {listOfRestaurant.map((resObj,index)=>{
             console.log("p",index,resObj)
           
-           return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}><RestaurantContainer key={resObj?.info.id} index={index}resData={resObj} /></Link>  
+           return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}>
+            {resObj?.info.avgRating<3.8 ?<LowRatedRestaurant resData={resObj}/>:<RestaurantContainer resData={resObj} />}</Link>  
         })}
          </div>
     </div>
