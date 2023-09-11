@@ -1,11 +1,14 @@
-import { useEffect, useState ,lazy,Suspense} from "react"
+import { useEffect, useState ,useContext} from "react"
 import { Link } from "react-router-dom"
 import useOnlineOffline from "../commmon/useOnlineOffline"
+import UserData from "../commmon/UserData.js"
 
 
 const HeaderComponent=()=>{
 
-    
+   const {loggedInUser}=useContext(UserData)
+
+   console.log("userName",loggedInUser)
     
      
     const [loginbtn,setLoginbtn]=useState("Login")    
@@ -51,7 +54,7 @@ const HeaderComponent=()=>{
 
                 <button className="loginLogoutbtn" onClick={()=>{
                     loginbtn==="Login"?setLoginbtn("Logout"):setLoginbtn("Login")
-                }}>{loginbtn}
+                }}>{loggedInUser}
                 </button>
 
 

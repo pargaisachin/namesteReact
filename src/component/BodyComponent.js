@@ -1,13 +1,14 @@
-import {useEffect, useState} from "react"
+import {useEffect, useState,useContext} from "react"
 import RestaurantContainer ,{withLowRatedRestaurantLabel}from "./RestaurantContainer"
 import ShimmerUI from "./ShimmerUI"
 import { Link } from "react-router-dom"
 import useOnlineOffline from "../commmon/useOnlineOffline"
+import UserData from "../commmon/UserData"
 
 
 const BodyComponent=()=>{
 
-
+const {loggedInUser,setUserName}=useContext(UserData)
 const [listOfRestaurant,setListOfRestaurant]=useState([])
 const [copyListOfRestaurant,setcopyListOfRestaurant]=useState([])
 const [searchString,setSearchString]=useState("")
@@ -65,11 +66,11 @@ if(onlineStatus===false){
 
           }}></input>
           <button className="bg-lime-200 rounded-lg m-4 px-4 py-2" >Search</button>
+          <input className="border border-black" value={loggedInUser} onChange={(e)=>{setUserName(e.target.value)}}></input>
           </div>
   
          <div className="grid grid-cols-4 gap-4 ">
            {listOfRestaurant.map((resObj,index)=>{
-            console.log("p",index,resObj)
           
            return <Link key={resObj?.info.id} to={`/restaurant/${resObj?.info.id}`}>
             {resObj?.info.avgRating<3.8 ?<LowRatedRestaurant resData={resObj}/>:<RestaurantContainer resData={resObj} />}</Link>  

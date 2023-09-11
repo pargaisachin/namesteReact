@@ -1,4 +1,4 @@
-import React, {lazy, Suspense } from "react"
+import React, {lazy, Suspense, useEffect, useState } from "react"
 import ReactDOM  from 'react-dom/client'
 import HeaderComponent from "./component/HeaderComponent"
 import BodyComponent from "./component/BodyComponent"
@@ -9,27 +9,24 @@ import RestaurantMenuPage from "./component/RestaurantMenuPage"
 // import Grocery from "./component/Grocery"
 const Grocery=lazy(()=>import("./component/Grocery"))
 import {createBrowserRouter,RouterProvider,Outlet} from "react-router-dom"
-/**
- * 
- * 
- * header
- * -logo
- * -navbar
- * 
- * Body
- * -searchbar
- * -RestautantContainer
- * 
- * footer
- * 
- * 
- */
+import UserData from "./commmon/UserData.js"
+
 const AppLayout=()=>{
+const [userName,setUserName]=useState()
+
+useEffect(()=>{
+
+  const data={userName:"sachin"}
+  setUserName(data.userName)
+},[])
+
     return(
+      <UserData.Provider value={{loggedInUser:userName,setUserName}}>
     <div className="app">
         <HeaderComponent/>
         <Outlet/>
     </div>
+    </UserData.Provider>
     )
 
 
