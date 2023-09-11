@@ -42,14 +42,15 @@ if(onlineStatus===false){
      let data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&page_type=DESKTOP_WEB_LISTING")
     
     let json=await data.json()
-    console.log("pp",json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants[0]?.info?.id)
-    console.log(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    console.log("pp",json?.data?.cards[5])
+    console.log(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
-    setListOfRestaurant(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-    setcopyListOfRestaurant(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setListOfRestaurant(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setcopyListOfRestaurant(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
     
   }
 
+  console.log("ll",)
   if(listOfRestaurant?.length===0){ 
     return (<><ShimmerUI></ShimmerUI></>)
   }
