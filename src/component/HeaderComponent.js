@@ -2,19 +2,25 @@ import { useEffect, useState ,useContext} from "react"
 import { Link } from "react-router-dom"
 import useOnlineOffline from "../commmon/useOnlineOffline"
 import UserData from "../commmon/UserData.js"
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector"
+
 
 
 const HeaderComponent=()=>{
 
    const {loggedInUser}=useContext(UserData)
 
-   console.log("userName",loggedInUser)
+   //subscribing the store using useSelector
+   const cartItems=useSelector(Store=>Store?.cart?.items)
+
+   console.log("cartItem",cartItems)
+
+
     
      
     const [loginbtn,setLoginbtn]=useState("Login")    
     
     
-    console.log("Header Component Called")
     //if no dependency array,useEffect is called on every Render
     
     
@@ -50,7 +56,7 @@ const HeaderComponent=()=>{
 
                 <li className="px-4"><Link to="/contact">Contacts</Link></li>
 
-                <li className="px-4">Cart</li>
+                <li className="px-4 font-bold text-lg"><Link to="/cart">Cart-({cartItems.length} items)</Link></li>
 
                 <button className="loginLogoutbtn" onClick={()=>{
                     loginbtn==="Login"?setLoginbtn("Logout"):setLoginbtn("Login")

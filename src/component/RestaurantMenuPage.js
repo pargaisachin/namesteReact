@@ -21,9 +21,9 @@ const[expandItem,setExpandItem]=useState(null)
     const {name,cuisines,costForTwoMessage}=resInfo?.cards[0]?.card?.card?.info
 
     // const {itemCards}=resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-    const categoryListWithFoodItems=resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR
+    const categoryListWithFoodItems=resInfo?.cards[3]?.groupedCard?.cardGroupMap?.REGULAR
 
-    const categoryList= categoryListWithFoodItems.cards.filter((element)=>{
+    const categoryList= categoryListWithFoodItems?.cards?.filter((element)=>{
                  return  element.card.card.title
     })
 
@@ -32,13 +32,13 @@ const[expandItem,setExpandItem]=useState(null)
 return(
     <>
         <div className="text-center mb-8">
-        <h1>{name}</h1>
+        <h1 className="text-lg font-bold">{name}</h1>
         <p>{cuisines.join(",")} -{costForTwoMessage}</p>
        
         
     </div>
     <div className="">
-            {categoryList.map((item,index)=>{
+            {categoryList?.map((item,index)=>{
              return (
              <RestaurantCategory expandItemStatus={expandItem===index?true:false} index={index} key={index} data={item} setExpandItem={(clickedIndex)=>{clickedIndex!==expandItem?setExpandItem(clickedIndex):setExpandItem(null) }} />)
         })}

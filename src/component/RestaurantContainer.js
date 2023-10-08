@@ -2,7 +2,7 @@ import { Logo_URL } from "../commmon/Constant"
 const RestaurantContainer=(props)=>{
     let {resData}=props
 
-    console.log("pp33",resData?.info)
+
    
 
 
@@ -34,7 +34,7 @@ return(
 export const withLowRatedRestaurantLabel=(RestaurantContainer)=>{
 
       return (resData)=>{
-          console.log("resDataHOC",resData)
+
           return(<>
           <label className="absolute bg-black text-white px-2 rounded-lg my-2">Low Rated</label>
           <RestaurantContainer resData={resData?.resData}/>

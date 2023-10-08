@@ -16,7 +16,7 @@ class UserClassComp extends React.Component{
    let data= await fetch("https://api.github.com/users/pargaisachin")
 
    let userData=await data.json()
-   console.log(userData.name)
+  
 
     this.setState({
         name:userData.name,
